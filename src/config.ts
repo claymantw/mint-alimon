@@ -26,7 +26,7 @@ export const mintMetadata = {
  * Contract Configuration
  */
 export const contractConfig = {
-  address: "0xB2C0cdAeC358613CDEaAb4E31bd7Be073F846F1e" as Address,
+  address: "0xb89b081a04b8a752e496409Dc02231091D819Fd4" as Address,
   chain: monadTestnet,
   abi: [
     {

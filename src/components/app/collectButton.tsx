@@ -3,7 +3,6 @@ import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
 import { useEffect, useRef, useState } from "react";
 import { parseEther } from "viem";
 import { useAccount, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
-
 import { contractConfig, mintMetadata } from "../../config";
 import { isUserRejectionError } from "../../lib/errors";
 import { AnimatedBorder } from "../ui/animatedBorder";
@@ -92,7 +91,7 @@ export function CollectButton({ priceEth, onCollect, onError, isMinting }: Colle
         {isPending ? (
           <AnimatedBorder>
             <Button className="w-full relative bg-[var(--color-active)] text-[var(--color-active-foreground)]" disabled>
-              {isMinting ? "Collecting..." : "Adding..."}
+              {isMinting ? "Minting..." : "Adding..."}
             </Button>
           </AnimatedBorder>
         ) : isConnected && chainId !== 10143 ? (
@@ -103,8 +102,16 @@ export function CollectButton({ priceEth, onCollect, onError, isMinting }: Colle
             Switch to Monad Testnet
           </Button>
         ) : (
-          <Button className="w-full" onClick={handleClick} disabled={isPending}>
-            {!isConnected && isMinting ? "Connect" : isMinting ? "Collect" : "Add Frame"}
+          <Button 
+            className="w-full" 
+            onClick={handleClick} 
+            disabled={isPending}
+          >
+            {!isConnected && isMinting 
+              ? "Connect" 
+              : isMinting 
+                ? "Mint" 
+                : "Add Frame"}
           </Button>
         )}
 
