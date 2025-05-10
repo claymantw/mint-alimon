@@ -28,6 +28,7 @@ function App() {
         description={mintMetadata.description}
         isMinting={mintMetadata.isMinting}
       >
+  
         <CollectButton
           priceEth={mintMetadata.priceEth}
           isMinting={mintMetadata.isMinting}

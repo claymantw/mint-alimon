@@ -2,7 +2,7 @@ import { sdk } from "@farcaster/frame-sdk";
 import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
 import { useEffect, useRef, useState } from "react";
 import { parseEther } from "viem";
-import { useAccount, useConnect, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useAccount, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 
 import { contractConfig, mintMetadata } from "../../config";
 import { isUserRejectionError } from "../../lib/errors";
@@ -18,7 +18,8 @@ interface CollectButtonProps {
 }
 
 export function CollectButton({ priceEth, onCollect, onError, isMinting }: CollectButtonProps) {
-  const { isConnected, address } = useAccount();
+  const { isConnected, address, chainId } = useAccount();
+  const { switchChain } = useSwitchChain();
   const { connect } = useConnect();
   const { writeContractAsync, isPending: isWriting } = useWriteContract();
   const [hash, setHash] = useState<`0x${string}`>();
@@ -61,10 +62,9 @@ export function CollectButton({ priceEth, onCollect, onError, isMinting }: Colle
       const hash = await writeContractAsync({
         address: contractConfig.address,
         abi: contractConfig.abi,
-        functionName: "vectorMint721",
-        args: [BigInt(contractConfig.vectorId), 1n, address],
+        functionName: "mint",
         value: parseEther(mintMetadata.priceEth),
-        chainId: contractConfig.chain.id,
+        chainId: 10143,
       });
 
       setHash(hash);
@@ -95,9 +95,31 @@ export function CollectButton({ priceEth, onCollect, onError, isMinting }: Colle
               {isMinting ? "Collecting..." : "Adding..."}
             </Button>
           </AnimatedBorder>
+        ) : isConnected && chainId !== 10143 ? (
+          <Button 
+            className="w-full" 
+            onClick={() => switchChain({ chainId: 10143 })}
+          >
+            Switch to Monad Testnet
+          </Button>
         ) : (
           <Button className="w-full" onClick={handleClick} disabled={isPending}>
             {!isConnected && isMinting ? "Connect" : isMinting ? "Collect" : "Add Frame"}
+          </Button>
+        )}
+
+        {isConnected && hash && (
+          <Button
+            variant="secondary"
+            className="w-full mt-2"
+            onClick={() =>
+              window.open(
+                `https://testnet.monadexplorer.com/tx/${hash}`,
+                "_blank"
+              )
+            }
+          >
+            View Transaction
           </Button>
         )}
       </div>

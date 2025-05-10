@@ -47,7 +47,7 @@ export function ArtworkInfo({ name, creator, chain, description, isMinting }: Ar
             <div className="flex items-center gap-1">
               <span className="text-sm text-muted">on</span>
               <Avatar className="h-4 w-4 bg-secondary rounded-full">
-                <AvatarImage src="/base-logo.png" alt="Base" />
+                <AvatarImage src="/monad-logo.png" alt="Monad" />
               </Avatar>
               <span className="text-sm">{chain}</span>
             </div>
