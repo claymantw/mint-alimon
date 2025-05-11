@@ -84,7 +84,7 @@ export function CollectButton({ priceEth, onCollect, onError, isMinting }: Colle
         {isMinting && (
           <div className="flex justify-between items-center mb-1 text-sm">
             <span className="text-muted text-sm">Cost</span>
-            <span className="text-foreground font-medium">{priceEth} ETH</span>
+            <span className="text-foreground font-medium">{priceEth} Testnet MON</span>
           </div>
         )}
 
