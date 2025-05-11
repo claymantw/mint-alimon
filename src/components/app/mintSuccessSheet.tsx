@@ -21,7 +21,7 @@ export function MintSuccessSheet({
   const handleShare = useCallback(() => {
     sdk.actions.composeCast({
       text: `I just minted ${name}!`,
-      embeds: ["https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/"],
+      embeds: ["https://monad-mini-mint.replit.app/"],
     });
   }, [name]);
 

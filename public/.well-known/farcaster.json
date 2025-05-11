@@ -7,11 +7,11 @@
   "frame": {
     "version": "1",
     "name": "Mint Demo",
-    "iconUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/icon.png",
-    "homeUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/",
-    "imageUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/nft.png",
+    "iconUrl": "https://monad-mini-mint.replit.app/icon.png",
+    "homeUrl": "https://monad-mini-mint.replit.app/",
+    "imageUrl": "https://monad-mini-mint.replit.app/nft.png",
     "buttonTitle": "Mint",
-    "splashImageUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/icon.png",
+    "splashImageUrl": "https://monad-mini-mint.replit.app/icon.png",
     "splashBackgroundColor": "#eeccff"
   }
 }
