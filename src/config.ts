@@ -5,7 +5,7 @@ import { monadTestnet } from "viem/chains";
  * NFT Metadata Configuration
  */
 export const mintMetadata = {
-  name: "Mini App Mint Demo",
+  name: "Monad Mini Mint",
   description:
     "A simple example of an onchain action in a Farcaster mini app on Monad Testnet. Tap the button below to mint this image. This mini build is built upon horsefacts.eth's original example. <3",
   imageUrl: "https://monad-mini-mint.replit.app/nft.png",
