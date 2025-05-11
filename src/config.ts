@@ -8,7 +8,7 @@ export const mintMetadata = {
   name: "Mini App Mint Demo",
   description:
     "A simple example of an onchain action in a Farcaster mini app on Monad Testnet. Tap the button below to mint this image. This mini build is built upon horsefacts.eth's original example. <3",
-  imageUrl: "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/nft.png",
+  imageUrl: "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/nft.png",
   creator: {
     name: "portdev.eth",
     fid: 3621,
@@ -26,7 +26,7 @@ export const mintMetadata = {
  * Contract Configuration
  */
 export const contractConfig = {
-  address: "0xb89b081a04b8a752e496409Dc02231091D819Fd4" as Address,
+  address: "0x18644C940Cca2971784AC5f478728f32e6184F8E" as Address,
   chain: monadTestnet,
   abi: [
     {
@@ -399,13 +399,13 @@ export const contractConfig = {
  */
 export const embedConfig = {
   version: "next",
-  imageUrl: "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/nft.png",
+  imageUrl: "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/nft.png",
   button: {
     title: "Mint",
     action: {
       type: "launch_frame",
       name: "NFT Mint",
-      url: "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/",
+      url: "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/",
     },
   },
 } as const;

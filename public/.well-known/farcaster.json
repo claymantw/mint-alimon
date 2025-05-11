@@ -7,11 +7,11 @@
   "frame": {
     "version": "1",
     "name": "Mint Demo",
-    "iconUrl": "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/icon.png",
-    "homeUrl": "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/",
-    "imageUrl": "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/nft.png",
+    "iconUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/icon.png",
+    "homeUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/",
+    "imageUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/nft.png",
     "buttonTitle": "Mint",
-    "splashImageUrl": "https://e998-2a09-bac5-58c8-18f0-00-27c-8b.ngrok-free.app/icon.png",
+    "splashImageUrl": "https://2fa5-2a09-bac5-58c9-1e1-00-30-8c.ngrok-free.app/icon.png",
     "splashBackgroundColor": "#eeccff"
   }
 }
