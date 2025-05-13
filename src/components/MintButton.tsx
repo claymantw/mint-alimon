@@ -1,38 +1,36 @@
 import {
-  useActiveWallet,
   TransactionButton,
+  useActiveWallet,
+  useContract,
 } from "thirdweb/react";
 import { monadTestnet } from "thirdweb/chains";
 import { contractConfig, mintMetadata } from "../config";
-import type { PreparedTransaction } from "thirdweb";
+import { prepareContractCall } from "thirdweb";
+import type { Abi } from "viem";
 
 export function MintButton() {
   const wallet = useActiveWallet();
-  const priceEth = mintMetadata.priceEth ?? "0";
-  const pricePerToken = BigInt(Number(priceEth) * 10 ** 18); // konversi ETH ke wei
+  // Tidak perlu useContract; cukup ambil address dan abi dari config
+  const pricePerToken = BigInt(
+    Number(mintMetadata.priceEth ?? "0") * 10 ** 18,
+  );
 
   return (
     <TransactionButton
-      transaction={async () => {
+      chain={monadTestnet}
+      // transaction harus PREPARED!
+      transaction={() => {
         if (!wallet)
           throw new Error("Connect wallet dulu!");
-        // Siapkan kontrak, ABI dan args sesuai claim
-        /* TIDAK gunakan useContract [sudah TIDAK tersedia].
-         * Koneksi kontrak dan prepare dipanggil otomatis oleh TransactionButton
-         * Argumen sesuai ABI claim kamu:
-         * address receiver, uint256 quantity, address currency, uint256 price, allowlistProof struct, bytes data
-         */
-        return {
-          // ! Penting: TransactionButton v5 sekarang hanya perlu tujuannya (contract address) dan method + params
+        return prepareContractCall({
           contractAddress: contractConfig.address,
-          chain: monadTestnet,
+          abi: contractConfig.abi as Abi,
           method: "claim",
           params: [
-            wallet.address, // penerima
-            1n, // quantity
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // native ETH/Mon
-            pricePerToken, // harga ETH per NFT (dalam wei)
-            // struct allowlistProof, kosongkan
+            wallet.address,
+            1n,
+            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+            pricePerToken,
             {
               proof: [],
               quantityLimitPerWallet: 0n,
@@ -40,10 +38,9 @@ export function MintButton() {
               currency:
                 "0x0000000000000000000000000000000000000000",
             },
-            "0x", // data kosong (bytes)
+            "0x",
           ],
-          abi: contractConfig.abi,
-        } satisfies PreparedTransaction;
+        });
       }}
       onTransactionConfirmed={() => alert("Mint sukses!")}
       onError={(err: any) =>
