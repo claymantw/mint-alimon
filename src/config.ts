@@ -399,7 +399,7 @@ export const contractConfig = {
  */
 export const embedConfig = {
   version: "next",
-  imageUrl: "https://mint-alimon.vercel.app/icon.pngnft.png",
+  imageUrl: "https://mint-alimon.vercel.app/nft.png",
   button: {
     title: "Mint",
     action: {
