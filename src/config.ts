@@ -399,13 +399,13 @@ export const contractConfig = {
  */
 export const embedConfig = {
   version: "next",
-  imageUrl: "https://monad-mini-mint.replit.app/nft.png",
+  imageUrl: "https://mint-alimon.vercel.app/icon.pngnft.png",
   button: {
     title: "Mint",
     action: {
       type: "launch_frame",
       name: "NFT Mint",
-      url: "https://monad-mini-mint.replit.app/",
+      url: "https://mint-alimon.vercel.app/icon.png",
     },
   },
 } as const;
