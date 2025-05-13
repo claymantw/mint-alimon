@@ -7,11 +7,11 @@
   "frame": {
     "version": "1",
     "name": "Mint Demo",
-    "iconUrl": "https://monad-mini-mint.replit.app/icon.png",
-    "homeUrl": "https://monad-mini-mint.replit.app/",
-    "imageUrl": "https://monad-mini-mint.replit.app/nft.png",
+    "iconUrl": "https://mint-alimon.vercel.app/icon.png",
+    "homeUrl": "https://mint-alimon.vercel.app/",
+    "imageUrl": "https://mint-alimon.vercel.app/nft.png",
     "buttonTitle": "Mint",
-    "splashImageUrl": "https://monad-mini-mint.replit.app/icon.png",
+    "splashImageUrl": "https://mint-alimon.vercel.app/icon.png",
     "splashBackgroundColor": "#eeccff"
   }
 }
