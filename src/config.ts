@@ -1,59 +1,47 @@
-import {
-  TransactionButton,
-  useContract,
-  useActiveWallet,
-} from "thirdweb/react";
-import { monadTestnet } from "thirdweb/chains";
-import { contractConfig } from "../config";
+import type { Abi, Address } from "viem";
+import { monadTestnet } from "viem/chains";
 
-/**
- * MintButton — Untuk OpenEditionERC721 custom (bukan Drop) HARUS memakai TransactionButton,
- * dengan fungsi transaction={...} yang memanggil method claim pada contract.
- */
-export function MintButton() {
-  // Dapatkan instance contract dan wallet user
-  const { contract } = useContract({
-    address: contractConfig.address,
-    chain: monadTestnet,
-    abi: contractConfig.abi,
-  });
-  const { data: wallet } = useActiveWallet();
+export const mintMetadata = {
+  name: "Monad Mini Mint",
+  description:
+    "A simple example of an onchain action in a Farcaster mini app on Monad Testnet. Tap the button below to mint this image. This mini build is built upon horsefacts.eth & portdev.eth original example. <3",
+  imageUrl: "https://mint-alimon.vercel.app/nft.png",
+  creator: {
+    name: "gotlop.eth",
+    fid: 540118,
+    profileImageUrl: "https://imgur.com/a/YeFAV11",
+  },
+  chain: "Monad Testnet",
+  priceEth: "0.2",
+  startsAt: null,
+  endsAt: null,
+  isMinting: true,
+} as const;
 
-  return (
-    <TransactionButton
-      transaction={async () => {
-        // Dynamic params: claim(target, qty, currency, price, allowlistProof, data)
-        const quantity = 1n; // default mint 1
-        const currency =
-          "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"; // native token
-        const pricePerToken = BigInt(
-          Number(contractConfig.pricePublic) * 10 ** 18,
-        ); // ganti dp config (jika ada di config), default 0n = gratis
-        // parameter allowlistProof bisa diisi default kosong
-        const allowlistProof = {
-          proof: [],
-          quantityLimitPerWallet: 0n,
-          pricePerToken: 0n,
-          currency:
-            "0x0000000000000000000000000000000000000000",
-        };
-        // data: kosongkan bytes
-        const data = "0x";
-        if (!wallet)
-          throw new Error("Connect wallet dulu!");
-        return contract?.prepare("claim", [
-          wallet.address,
-          quantity,
-          currency,
-          pricePerToken,
-          allowlistProof,
-          data,
-        ]);
-      }}
-      onTransactionConfirmed={() => alert("Mint sukses!")}
-      onError={(err) => alert("Mint gagal: " + err.message)}
-    >
-      Mint NFT
-    </TransactionButton>
-  );
-}
+export const contractConfig = {
+  address:
+    "0xc081F5FEE2939532097d8afAb1d94fD96062eD8a" as Address,
+  chain: monadTestnet,
+  abi: [
+    /* MASUKKAN ABI ASLI full di sini */
+  ] as Abi,
+} as const;
+
+export const embedConfig = {
+  version: "next",
+  imageUrl: "https://mint-alimon.vercel.app/nft.png",
+  button: {
+    title: "Mint",
+    action: {
+      type: "launch_frame",
+      name: "NFT Mint",
+      url: "https://mint-alimon.vercel.app/icon.png",
+    },
+  },
+} as const;
+
+export const config = {
+  ...mintMetadata,
+  contract: contractConfig,
+  embed: embedConfig,
+} as const;
