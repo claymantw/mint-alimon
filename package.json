@@ -23,7 +23,7 @@
     "vaul": "^1.1.2",
     "viem": "latest",
     "vite-plugin-meta-tags": "^0.1.4",
-    "wagmi": "latest"
+    "wagmi": "latest",
     "thirdweb": "^5.0.0"
   },
   "devDependencies": {
