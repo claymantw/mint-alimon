@@ -24,6 +24,7 @@
     "viem": "latest",
     "vite-plugin-meta-tags": "^0.1.4",
     "wagmi": "latest"
+    "thirdweb": "^5.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.0",
