@@ -1,420 +1,59 @@
-import type { Abi, Address } from "viem";
-import { monadTestnet } from "viem/chains";
+import {
+  TransactionButton,
+  useContract,
+  useActiveWallet,
+} from "thirdweb/react";
+import { monadTestnet } from "thirdweb/chains";
+import { contractConfig } from "../config";
 
 /**
- * NFT Metadata Configuration
+ * MintButton — Untuk OpenEditionERC721 custom (bukan Drop) HARUS memakai TransactionButton,
+ * dengan fungsi transaction={...} yang memanggil method claim pada contract.
  */
-export const mintMetadata = {
-  name: "Monad Mini Mint",
-  description:
-    "A simple example of an onchain action in a Farcaster mini app on Monad Testnet. Tap the button below to mint this image. This mini build is built upon horsefacts.eth & portdev.eth original example. <3",
-  imageUrl: "https://mint-alimon.vercel.app/nft.png",
-  creator: {
-    name: "gotlop.eth",
-    fid: 540118,
-    profileImageUrl:
-      "https://imgur.com/a/YeFAV11",
-  },
-  chain: "Monad Testnet",
-  priceEth: "0.2",
-  startsAt: null,
-  endsAt: null,
-  isMinting: true,
-} as const;
+export function MintButton() {
+  // Dapatkan instance contract dan wallet user
+  const { contract } = useContract({
+    address: contractConfig.address,
+    chain: monadTestnet,
+    abi: contractConfig.abi,
+  });
+  const { data: wallet } = useActiveWallet();
 
-/**
- * Contract Configuration
- */
-export const contractConfig = {
-  address: "0xc081F5FEE2939532097d8afAb1d94fD96062eD8a" as Address,
-  chain: monadTestnet,
-  abi: [
-    {
-      type: "constructor",
-      inputs: [
-        { name: "name", type: "string", internalType: "string" },
-        { name: "symbol", type: "string", internalType: "string" },
-        { name: "baseURI", type: "string", internalType: "string" },
-        { name: "owner", type: "address", internalType: "address" },
-        { name: "whitelist", type: "address[]", internalType: "address[]" },
-        { name: "priceWhitelist", type: "uint256", internalType: "uint256" },
-        { name: "pricePublic", type: "uint256", internalType: "uint256" },
-        { name: "supplyMax", type: "uint256", internalType: "uint256" },
-        { name: "premintReserved", type: "uint256", internalType: "uint256" },
-        { name: "whitelistDuration", type: "uint256", internalType: "uint256" },
-        { name: "royaltyPercent", type: "uint256", internalType: "uint256" },
-      ],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "DURATION_WHITELIST",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "PERCENT_ROYALTY",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "PREMINT_RESERVED",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "PRICE_PUBLIC",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "PRICE_WHITELIST",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "SUPPLY_MAX",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "approve",
-      inputs: [
-        { name: "to", type: "address", internalType: "address" },
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-      ],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "balanceOf",
-      inputs: [{ name: "owner", type: "address", internalType: "address" }],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "getApproved",
-      inputs: [{ name: "tokenId", type: "uint256", internalType: "uint256" }],
-      outputs: [{ name: "", type: "address", internalType: "address" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "getWhitelist",
-      inputs: [{ name: "minter", type: "address", internalType: "address" }],
-      outputs: [
-        {
-          name: "status",
-          type: "uint8",
-          internalType: "enum NFTTemplate.Whitelist",
-        },
-      ],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "isApprovedForAll",
-      inputs: [
-        { name: "owner", type: "address", internalType: "address" },
-        { name: "operator", type: "address", internalType: "address" },
-      ],
-      outputs: [{ name: "", type: "bool", internalType: "bool" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "mint",
-      inputs: [],
-      outputs: [],
-      stateMutability: "payable",
-    },
-    {
-      type: "function",
-      name: "name",
-      inputs: [],
-      outputs: [{ name: "", type: "string", internalType: "string" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "ownerOf",
-      inputs: [{ name: "tokenId", type: "uint256", internalType: "uint256" }],
-      outputs: [{ name: "", type: "address", internalType: "address" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "royaltyInfo",
-      inputs: [
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-        { name: "salePrice", type: "uint256", internalType: "uint256" },
-      ],
-      outputs: [
-        { name: "receiver", type: "address", internalType: "address" },
-        { name: "amount", type: "uint256", internalType: "uint256" },
-      ],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "safeTransferFrom",
-      inputs: [
-        { name: "from", type: "address", internalType: "address" },
-        { name: "to", type: "address", internalType: "address" },
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-      ],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "safeTransferFrom",
-      inputs: [
-        { name: "from", type: "address", internalType: "address" },
-        { name: "to", type: "address", internalType: "address" },
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-        { name: "data", type: "bytes", internalType: "bytes" },
-      ],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "setApprovalForAll",
-      inputs: [
-        { name: "operator", type: "address", internalType: "address" },
-        { name: "approved", type: "bool", internalType: "bool" },
-      ],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "setBaseURI",
-      inputs: [{ name: "newBaseURI", type: "string", internalType: "string" }],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "supportsInterface",
-      inputs: [{ name: "interfaceId", type: "bytes4", internalType: "bytes4" }],
-      outputs: [{ name: "", type: "bool", internalType: "bool" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "symbol",
-      inputs: [],
-      outputs: [{ name: "", type: "string", internalType: "string" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "tokenByIndex",
-      inputs: [{ name: "index", type: "uint256", internalType: "uint256" }],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "tokenOfOwnerByIndex",
-      inputs: [
-        { name: "owner", type: "address", internalType: "address" },
-        { name: "index", type: "uint256", internalType: "uint256" },
-      ],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "tokenURI",
-      inputs: [{ name: "tokenId", type: "uint256", internalType: "uint256" }],
-      outputs: [{ name: "", type: "string", internalType: "string" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "totalSupply",
-      inputs: [],
-      outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "transferFrom",
-      inputs: [
-        { name: "from", type: "address", internalType: "address" },
-        { name: "to", type: "address", internalType: "address" },
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-      ],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "event",
-      name: "Approval",
-      inputs: [
-        {
-          name: "owner",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-        {
-          name: "approved",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-        {
-          name: "tokenId",
-          type: "uint256",
-          indexed: true,
-          internalType: "uint256",
-        },
-      ],
-      anonymous: false,
-    },
-    {
-      type: "event",
-      name: "ApprovalForAll",
-      inputs: [
-        {
-          name: "owner",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-        {
-          name: "operator",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-        {
-          name: "approved",
-          type: "bool",
-          indexed: false,
-          internalType: "bool",
-        },
-      ],
-      anonymous: false,
-    },
-    {
-      type: "event",
-      name: "Transfer",
-      inputs: [
-        {
-          name: "from",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-        { name: "to", type: "address", indexed: true, internalType: "address" },
-        {
-          name: "tokenId",
-          type: "uint256",
-          indexed: true,
-          internalType: "uint256",
-        },
-      ],
-      anonymous: false,
-    },
-    { type: "error", name: "ERC721EnumerableForbiddenBatchMint", inputs: [] },
-    {
-      type: "error",
-      name: "ERC721IncorrectOwner",
-      inputs: [
-        { name: "sender", type: "address", internalType: "address" },
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-        { name: "owner", type: "address", internalType: "address" },
-      ],
-    },
-    {
-      type: "error",
-      name: "ERC721InsufficientApproval",
-      inputs: [
-        { name: "operator", type: "address", internalType: "address" },
-        { name: "tokenId", type: "uint256", internalType: "uint256" },
-      ],
-    },
-    {
-      type: "error",
-      name: "ERC721InvalidApprover",
-      inputs: [{ name: "approver", type: "address", internalType: "address" }],
-    },
-    {
-      type: "error",
-      name: "ERC721InvalidOperator",
-      inputs: [{ name: "operator", type: "address", internalType: "address" }],
-    },
-    {
-      type: "error",
-      name: "ERC721InvalidOwner",
-      inputs: [{ name: "owner", type: "address", internalType: "address" }],
-    },
-    {
-      type: "error",
-      name: "ERC721InvalidReceiver",
-      inputs: [{ name: "receiver", type: "address", internalType: "address" }],
-    },
-    {
-      type: "error",
-      name: "ERC721InvalidSender",
-      inputs: [{ name: "sender", type: "address", internalType: "address" }],
-    },
-    {
-      type: "error",
-      name: "ERC721NonexistentToken",
-      inputs: [{ name: "tokenId", type: "uint256", internalType: "uint256" }],
-    },
-    {
-      type: "error",
-      name: "ERC721OutOfBoundsIndex",
-      inputs: [
-        { name: "owner", type: "address", internalType: "address" },
-        { name: "index", type: "uint256", internalType: "uint256" },
-      ],
-    },
-  ] as const as Abi,
-} as const;
-
-/**
- * Farcaster Frame Embed Configuration
- */
-export const embedConfig = {
-  version: "next",
-  imageUrl: "https://mint-alimon.vercel.app/nft.png",
-  button: {
-    title: "Mint",
-    action: {
-      type: "launch_frame",
-      name: "NFT Mint",
-      url: "https://mint-alimon.vercel.app/icon.png",
-    },
-  },
-} as const;
-
-/**
- * Main App Configuration
- */
-export const config = {
-  ...mintMetadata,
-  contract: contractConfig,
-  embed: embedConfig,
-} as const;
+  return (
+    <TransactionButton
+      transaction={async () => {
+        // Dynamic params: claim(target, qty, currency, price, allowlistProof, data)
+        const quantity = 1n; // default mint 1
+        const currency =
+          "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"; // native token
+        const pricePerToken = BigInt(
+          Number(contractConfig.pricePublic) * 10 ** 18,
+        ); // ganti dp config (jika ada di config), default 0n = gratis
+        // parameter allowlistProof bisa diisi default kosong
+        const allowlistProof = {
+          proof: [],
+          quantityLimitPerWallet: 0n,
+          pricePerToken: 0n,
+          currency:
+            "0x0000000000000000000000000000000000000000",
+        };
+        // data: kosongkan bytes
+        const data = "0x";
+        if (!wallet)
+          throw new Error("Connect wallet dulu!");
+        return contract?.prepare("claim", [
+          wallet.address,
+          quantity,
+          currency,
+          pricePerToken,
+          allowlistProof,
+          data,
+        ]);
+      }}
+      onTransactionConfirmed={() => alert("Mint sukses!")}
+      onError={(err) => alert("Mint gagal: " + err.message)}
+    >
+      Mint NFT
+    </TransactionButton>
+  );
+}
