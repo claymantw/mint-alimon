@@ -21,7 +21,7 @@ export function MintSuccessSheet({
   const handleShare = useCallback(() => {
     sdk.actions.composeCast({
       text: `I just minted this incredibly useful NFT: ${name}!`,
-      embeds: ["https://monad-mini-mint.replit.app/"],
+      embeds: ["https://mint-alimon.vercel.app/"],
     });
   }, [name]);
 
