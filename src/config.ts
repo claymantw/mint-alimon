@@ -8,12 +8,12 @@ export const mintMetadata = {
   name: "Monad Mini Mint",
   description:
     "A simple example of an onchain action in a Farcaster mini app on Monad Testnet. Tap the button below to mint this image. This mini build is built upon horsefacts.eth's original example. <3",
-  imageUrl: "https://monad-mini-mint.replit.app/nft.png",
+  imageUrl: "https://mint-alimon.vercel.app/nft.png",
   creator: {
-    name: "portdev.eth",
-    fid: 3621,
+    name: "gotlop.eth",
+    fid: 540118,
     profileImageUrl:
-      "https://i.imgur.com/K25aLcF.jpeg/",
+      "https://imgur.com/a/YeFAV11",
   },
   chain: "Monad Testnet",
   priceEth: "0.2",
